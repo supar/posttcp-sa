@@ -1,8 +1,8 @@
 ## Postfix tcp map server
 
-This service desinged to report postfix to reject or not requested address by tcp_table protocol. Service looks through postlog-sa statistics table.
+This service designed to report postfix to reject or not requested address by tcp_table protocol. Service looks through postlog-sa statistics table.
 
-### Desined for
+### Designed for
 
 - Postfix
 - Postlog-sa
