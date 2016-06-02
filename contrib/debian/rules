@@ -1,0 +1,40 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+# export DH_VERBOSE := 1
+
+# Export variables
+export PATH := /usr/local/go/bin:/go/bin:$(PATH)
+export GOPATH := /go:$(CURDIR)
+export DESTDIR := debian/posttcp-sa
+
+override_dh_auto_clean:
+	rm -rf `ls -A | grep -v "debian"`
+	tar xf ../*.orig.tar.gz -C ..
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+	cd src/posttcp-sa && $(MAKE) build
+
+override_dh_auto_test:
+#	cd src/posttcp-sa && $(MAKE) test
+
+override_dh_auto_install:
+	install -g 0 -o 0 -d $(DESTDIR)/etc/posttcp-sa/
+	install -g 0 -o 0 -d $(DESTDIR)/etc/init.d/
+	install -g 0 -o 0 -d $(DESTDIR)/usr/sbin/
+	install -g 0 -o 0 -d $(DESTDIR)/var/log/posttcp-sa/
+	install -m755 src/posttcp-sa/posttcp-sa $(DESTDIR)/usr/sbin/
+	install -m755 debian/posttcp-sa.init.sh $(DESTDIR)/etc/init.d/posttcp-sa
+	install -m644 debian/posttcp-sa.toml $(DESTDIR)/etc/posttcp-sa/posttcp-sa.toml.sample
+
+# the SHA1 of dockerinit is important: don't strip it
+# also, Go has lots of problems with stripping, so just don't
+override_dh_strip:
+
+
+%:
+	dh $@
+

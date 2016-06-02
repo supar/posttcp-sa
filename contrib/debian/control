@@ -1,0 +1,10 @@
+Source: posttcp-sa
+Priority: extra
+Section: misc
+Build-Depends: debhelper (>= 9)
+Standards-Version: @VERSION@
+Maintainer: supar <paulrez@gmail.com>
+
+Package: posttcp-sa
+Architecture: amd64
+Description: TCP server for the postfix postmap and spam log analyzer
